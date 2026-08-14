@@ -16,6 +16,10 @@ function handleChange(event){
 
 
 function handleClick(){
+if(inputValue==="") {
+  return
+}
+  
 const finder = messageArray.find(message=>
    message.userMessage === inputValue.trim().toLowerCase() )
 setInputValue("")   
