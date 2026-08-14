@@ -9,7 +9,7 @@ export default function App(){
 const [inputValue,setInputValue]  =useState("")
 const [messages, setMessages] = useState([])
 const [sidebarOpen, setSidebarOpen] = useState(false)
-
+const [theme,setTheme]=useState("light")
 
 
 function handleChange(event){
@@ -19,7 +19,7 @@ function handleChange(event){
 
 function handleClick(){
 
-if(inputValue==="") {
+if(inputValue.trim()==="") {
   return
 }
   
@@ -45,9 +45,14 @@ setMessages(prev=>[...prev,{
  function handleSideBar(){
   setSidebarOpen(prev => !prev) 
  } 
+ 
+ function handleTheme(){
+   setTheme(prev=>prev==="light"?"dark":"light")
+ }
   
   return (
-    <>
+    <div className={theme}>
+      
     <SidebarToggle 
     onClick={handleSideBar} 
     />
@@ -55,6 +60,7 @@ setMessages(prev=>[...prev,{
      <SideBar
     onClick={handleSideBar} 
      isOpen={sidebarOpen} 
+     themeClick={handleTheme}
      />
      
   <main
@@ -79,7 +85,7 @@ setMessages(prev=>[...prev,{
        />
         </div>
       </footer>
-    </>
+    </div>
     
     )
 }
