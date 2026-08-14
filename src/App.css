@@ -8,26 +8,214 @@ html, body {
   height: 100%;
 }
 
+/* ---------- Theme variables ---------- */
+:root {
+  --bg: #ffffff;
+  --text: #1c1c1c;
+  --text-muted: #6e6e6e;
+  --sidebar-bg: #fafafa;
+  --border: #e6e6e6;
+  --hover: #f0f0f0;
+  --icon: #6e6e6e;
+  --bubble-user: #efeff0;
+  --input-bg: #ffffff;
+  --input-border: #dcdcdc;
+  --placeholder: #9a9a9a;
+  --send-bg: #1c1c1c;
+  --send-bg-hover: #383838;
+  --send-disabled: #d4d4d4;
+  --send-text: #ffffff;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.dark {
+  --bg: #131313;
+  --text: #ededed;
+  --text-muted: #a0a0a0;
+  --sidebar-bg: #1a1a1a;
+  --border: #2a2a2a;
+  --hover: #242424;
+  --icon: #a0a0a0;
+  --bubble-user: #262626;
+  --input-bg: #1e1e1e;
+  --input-border: #333333;
+  --placeholder: #757575;
+  --send-bg: #ededed;
+  --send-bg-hover: #ffffff;
+  --send-disabled: #3a3a3a;
+  --send-text: #131313;
+  --shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #f7f7f5;
-  color: #1a1a1a;
 }
 
 #root {
+  height: 100vh;
+}
+
+/* Theme wrapper acts as the flex container that used to be on #root */
+.light,
+.dark {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* ---------- Sidebar ---------- */
+section {
+  width: 260px;
+  height: 100vh;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  z-index: 20;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  padding: 16px 12px;
+}
+
+section.open {
+  transform: translateX(0);
+}
+
+.closeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background 0.2s ease;
+}
+
+.closeToggle:hover {
+  background: var(--hover);
+}
+
+/* ---------- Top section: new chat, search ---------- */
+.sidebarTop {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.newChatBtn,
+.searchBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.newChatBtn:hover,
+.searchBtn:hover {
+  background: var(--hover);
+}
+
+.newChatBtn svg,
+.searchBtn svg {
+  flex-shrink: 0;
+  color: var(--icon);
+}
+
+/* ---------- Bottom section: theme, about ---------- */
+.sidebarBottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.sidebarItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.sidebarItem:hover {
+  background: var(--hover);
+}
+
+.sidebarItem svg {
+  flex-shrink: 0;
+  color: var(--icon);
+}
+
+/* ---------- Header (holds sidebar toggle) ---------- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 16px;
+  z-index: 30;
+}
+
+#sidebarToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#sidebarToggle:hover {
+  background: var(--hover);
 }
 
 /* ---------- Message area ---------- */
 main {
   flex: 1;
   overflow-y: auto;
-  padding: 32px 16px 140px;
+  padding: 72px 16px 140px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
 main > div {
@@ -39,11 +227,10 @@ main > div {
   gap: 10px;
 }
 
-/* User message bubble */
 main > div p.left {
   align-self: flex-end;
-  background: #dcdcd6;
-  color: #1a1a1a;
+  background: var(--bubble-user);
+  color: var(--text);
   padding: 10px 16px;
   border-radius: 18px;
   max-width: 75%;
@@ -51,18 +238,17 @@ main > div p.left {
   word-wrap: break-word;
 }
 
-/* Bot response — no bubble, plain text like Claude's replies */
 main > div p.right {
   align-self: flex-start;
   background: none;
-  color: #1a1a1a;
+  color: var(--text);
   padding: 4px 2px;
   max-width: 100%;
   line-height: 1.6;
   word-wrap: break-word;
 }
 
-/* ---------- Footer / input bar (fixed at bottom) ---------- */
+/* ---------- Footer / input bar ---------- */
 footer {
   position: fixed;
   bottom: 0;
@@ -71,7 +257,9 @@ footer {
   display: flex;
   justify-content: center;
   padding: 16px;
-  background: linear-gradient(to top, #f7f7f5 60%, transparent);
+  background: linear-gradient(to top, var(--bg) 65%, transparent);
+  z-index: 10;
+  transition: background 0.25s ease;
 }
 
 footer .inputBar {
@@ -80,11 +268,12 @@ footer .inputBar {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #fff;
-  border: 1px solid #e0e0dc;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 28px;
   padding: 8px 8px 8px 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 #textInput {
@@ -94,28 +283,34 @@ footer .inputBar {
   font-size: 15px;
   padding: 10px 0;
   background: transparent;
+  color: var(--text);
 }
 
 #textInput::placeholder {
-  color: #9a9a94;
+  color: var(--placeholder);
 }
 
 #sendBtn {
-  padding: 10px 20px;
-  background: #1a1a1a;
-  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: var(--send-bg);
+  color: var(--send-text);
   border: none;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 50%;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  flex-shrink: 0;
 }
 
-#sendBtn:hover {
-  background: #333;
+#sendBtn:hover:not(:disabled) {
+  background: var(--send-bg-hover);
 }
 
-#sendBtn:active {
-  background: #000;
+#sendBtn:disabled {
+  background: var(--send-disabled);
+  cursor: not-allowed;
 }
