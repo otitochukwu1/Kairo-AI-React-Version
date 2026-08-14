@@ -4,6 +4,7 @@ import TextInput from "./Components/TextInput"
 import ButtonInput from "./Components/ButtonInput"
 import SideBar from "./Components/SideBar"
 import SidebarToggle from "./Helpers/Header"
+import AboutDeveloper from "./Components/AboutDev"
 
 export default function App(){
   const [inputValue, setInputValue] = useState("")
@@ -11,6 +12,8 @@ export default function App(){
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [theme, setTheme] = useState("light")
   const [loading, setLoading] = useState(false)
+const [showAbout, setShowAbout] = useState(false)
+
 
   function handleChange(event){
     setInputValue(event.target.value)
@@ -23,6 +26,16 @@ export default function App(){
   function handleSideBar(){
     setSidebarOpen(prev => !prev)
   }
+
+function handleAboutClick(){
+  alert("Jello")
+  setShowAbout(true)
+  setSidebarOpen(false)
+}
+
+function handleBackFromAbout(){
+  setShowAbout(false)
+}
 
   async function handleClick(){
     if(inputValue.trim() === "") {
@@ -69,37 +82,41 @@ export default function App(){
     }
   }
 
-  return (
-    <div className={theme}>
-      <SidebarToggle onClick={handleSideBar} />
+  
+return (
+  <div className={theme}>
+    <SidebarToggle onClick={handleSideBar} />
 
-      <SideBar
-        onClick={handleSideBar}
-        isOpen={sidebarOpen}
-        themeClick={handleTheme}
-      />
+    <SideBar
+      onClick={handleSideBar}
+      isOpen={sidebarOpen}
+      themeClick={handleTheme}
+      aboutClick={handleAboutClick}
+    />
 
-      <main onClick={() => setSidebarOpen(false)}>
-        {messages.map((message, index) =>
-          <div key={index}>
-            <p className="left">{message.user}</p>
-            <p className="right">{message.bot}</p>
+    {showAbout ? (
+      <AboutDeveloper onClick={handleBackFromAbout} />
+    ) : (
+      <>
+        <main onClick={() => setSidebarOpen(false)}>
+          {messages.map((message, index) =>
+            <div key={index}>
+              <p className="left">{message.user}</p>
+              <p className="right">{message.bot}</p>
+            </div>
+          )}
+          {loading && <p className="right">Thinking...</p>}
+        </main>
+
+        <footer>
+          <div className="inputBar">
+            <TextInput value={inputValue} onChange={handleChange} />
+            <ButtonInput onClick={handleClick} />
           </div>
-        )}
-        {loading && <p className="right">Thinking...</p>}
-      </main>
+        </footer>
+      </>
+    )}
+  </div>
+)
 
-      <footer>
-        <div className="inputBar">
-          <TextInput
-            value={inputValue}
-            onChange={handleChange}
-          />
-          <ButtonInput
-            onClick={handleClick}
-          />
-        </div>
-      </footer>
-    </div>
-  )
 }
