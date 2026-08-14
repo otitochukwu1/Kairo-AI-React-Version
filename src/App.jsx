@@ -16,6 +16,8 @@ function handleChange(event){
 
 
 function handleClick(){
+
+  
 const finder = messageArray.find(message=>
    message.userMessage === inputValue.trim().toLowerCase() )
 setInputValue("")   
