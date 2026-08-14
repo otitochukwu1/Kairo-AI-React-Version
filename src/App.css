@@ -66,6 +66,32 @@ body {
   transition: background 0.25s ease, color 0.25s ease;
 }
 
+
+
+/* ---------- App Header ---------- */
+h1 {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 18px 0 12px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  z-index: 15;
+  pointer-events: none;
+  letter-spacing: -0.01em;
+}
+
+h1 span {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
 /* ---------- Sidebar ---------- */
 section {
   width: 260px;
@@ -315,84 +341,98 @@ footer .inputBar {
   cursor: not-allowed;
 }
 
+
+  
+
+
 /* ---------- About Developer ---------- */
 .developer-container {
   width: 100%;
-  max-width: 700px;
+  max-width: 560px;
   margin: 0 auto;
-  padding: 72px 16px 40px;
-  overflow-y: auto;
-  height: 100vh;
+  padding: 80px 20px 60px;
+  min-height: 100vh;
 }
 
 .needToGoHome {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   padding: 0;
-  background: transparent;
+  background: var(--sidebar-bg);
   color: var(--text);
-  border: none;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
   cursor: pointer;
-  margin-bottom: 20px;
-  font-size: 16px;
-  transition: background 0.2s ease;
+  margin-bottom: 28px;
+  font-size: 15px;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .needToGoHome:hover {
   background: var(--hover);
+  transform: translateX(-2px);
 }
 
 .developer-header {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .developer-header h2 {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
+/* ---------- Card ---------- */
 .developer-card {
   background: var(--sidebar-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
 }
 
 .developer-profile {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 18px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
 }
 
 .developer-avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: var(--send-bg);
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--send-bg), var(--icon));
   color: var(--send-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 24px;
   flex-shrink: 0;
 }
 
 .developer-info h3 {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
+  letter-spacing: -0.01em;
 }
 
 .developer-title {
-  display: block;
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--send-text);
+  background: var(--send-bg);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
 }
 
 .developer-location {
@@ -404,33 +444,40 @@ footer .inputBar {
 }
 
 .developer-bio {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text);
-  margin-bottom: 24px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 28px;
 }
 
+/* ---------- Action buttons ---------- */
 .developer-actions {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
 .dev-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 14px;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  font-size: 13.5px;
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.2s ease, transform 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.dev-btn i {
+  font-size: 14px;
 }
 
 .dev-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  opacity: 0.92;
 }
 
 .dev-btn:active {
@@ -440,20 +487,29 @@ footer .inputBar {
 .btn-primary {
   background: var(--send-bg);
   color: var(--send-text);
+  grid-column: span 2;
+  padding: 14px;
+  font-size: 14.5px;
 }
 
 .btn-secondary {
-  background: var(--bubble-user);
+  background: transparent;
   color: var(--text);
-  border: 1px solid var(--border);
+  border-color: var(--border);
 }
 
 .btn-whatsapp {
-  background: #25d366;
-  color: #ffffff;
+  background: rgba(37, 211, 102, 0.12);
+  color: #25d366;
+  border-color: rgba(37, 211, 102, 0.3);
 }
 
 .btn-coffee {
-  background: #ffdd00;
-  color: #1a1a1a;
+  background: rgba(255, 221, 0, 0.15);
+  color: #b38f00;
+  border-color: rgba(255, 221, 0, 0.4);
+}
+
+.dark .btn-coffee {
+  color: #ffdd00;
 }

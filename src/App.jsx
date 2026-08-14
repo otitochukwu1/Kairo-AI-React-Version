@@ -5,6 +5,9 @@ import ButtonInput from "./Components/ButtonInput"
 import SideBar from "./Components/SideBar"
 import SidebarToggle from "./Helpers/Header"
 import AboutDeveloper from "./Components/AboutDev"
+import Header from "./Components/Header"
+
+
 
 export default function App(){
   const [inputValue, setInputValue] = useState("")
@@ -28,7 +31,6 @@ const [showAbout, setShowAbout] = useState(false)
   }
 
 function handleAboutClick(){
-  alert("Jello")
   setShowAbout(true)
   setSidebarOpen(false)
 }
@@ -41,6 +43,16 @@ function handleBackFromAbout(){
     if(inputValue.trim() === "") {
       return
     }
+
+if(inputValue==="Who develop you"){
+setMessages(prev => [...prev, {
+          user: inputValue,
+          bot: "I was developed and built by Otikas, a passionate web developer and creator who designed me with the goal of building an AI that can interact with users, understand their questions, and provide helpful responses."
+        }])
+        
+        setInputValue("")
+        return;
+}
 
     const userMessage = inputValue
     setInputValue("")
@@ -86,6 +98,8 @@ function handleBackFromAbout(){
 return (
   <div className={theme}>
     <SidebarToggle onClick={handleSideBar} />
+    
+    <Header/>
 
     <SideBar
       onClick={handleSideBar}
