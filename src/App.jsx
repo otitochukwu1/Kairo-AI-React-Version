@@ -44,16 +44,6 @@ function handleBackFromAbout(){
       return
     }
 
-if(inputValue==="Who develop you"){
-setMessages(prev => [...prev, {
-          user: inputValue,
-          bot: "I was developed and built by Otikas, a passionate web developer and creator who designed me with the goal of building an AI that can interact with users, understand their questions, and provide helpful responses."
-        }])
-        
-        setInputValue("")
-        return;
-}
-
     const userMessage = inputValue
     setInputValue("")
     setLoading(true)
